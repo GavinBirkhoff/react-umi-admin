@@ -1,0 +1,21 @@
+{
+  "name": "react-umi-admin",
+  "description": "基于react18，umi4，antd5等的中后台管理模版，可以快速开展我们的业务功能。",
+  "keywords": ["react","admin","umi","umi4"],
+  "author": "Gavin Birkhoff <gavinbirkhoff@gmail.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "umi": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "typescript": "^5.3.3"
+  }
+}
