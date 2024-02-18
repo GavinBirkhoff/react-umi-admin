@@ -1,14 +1,20 @@
 {
   "name": "react-umi-admin",
   "description": "基于react18，umi4，antd5等的中后台管理模版，可以快速开展我们的业务功能。",
-  "keywords": ["react","admin","umi","umi4"],
+  "keywords": [
+    "react",
+    "admin",
+    "umi",
+    "umi4"
+  ],
   "author": "Gavin Birkhoff <gavinbirkhoff@gmail.com>",
   "scripts": {
     "dev": "umi dev",
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "lint": "umi lint --fix"
   },
   "dependencies": {
     "umi": "^4.1.1"
@@ -16,6 +22,18 @@
   "devDependencies": {
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
+    "@umijs/lint": "^4.1.1",
+    "eslint": "^8.56.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "prettier-plugin-packagejson": "^2.4.3",
+    "stylelint": "^14",
     "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,less}": [
+      "umi lint"
+    ]
   }
 }
