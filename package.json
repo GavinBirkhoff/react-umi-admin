@@ -9,6 +9,7 @@
   ],
   "author": "Gavin Birkhoff <gavinbirkhoff@gmail.com>",
   "scripts": {
+    "analyze": "cross-env ANALYZE=1 umi build",
     "dev": "umi dev",
     "build": "umi build",
     "postinstall": "umi setup",
@@ -17,18 +18,31 @@
     "lint": "umi lint --fix"
   },
   "dependencies": {
-    "umi": "^4.1.1"
+    "@ant-design/icons": "^5.3.0",
+    "antd": "^5.14.1",
+    "path-copilot": "1.0.0-Beta",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storetify": "^1.0.0",
+    "swiftlet-log": "1.0.0-beta.1",
+    "ts-copilot": "1.0.0-Beta",
+    "umi": "^4.1.1",
+    "use-compare": "^1.0.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@umijs/lint": "^4.1.1",
+    "@umijs/plugins": "^4.1.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
+    "express": "^4.18.2",
     "lint-staged": "^15.2.2",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",
-    "stylelint": "^14",
+    "stylelint": "^14.16.1",
     "typescript": "^5.3.3"
   },
   "lint-staged": {
