@@ -5,6 +5,9 @@ const routes = [
     routes: [
       { path: '/user', component: 'User' },
     ],
+    wrappers: [
+      '@/wrappers/RouteGuard', // 使用路由守卫
+    ],
   },
   { path:"*", component:'NotFound' }
 ]
