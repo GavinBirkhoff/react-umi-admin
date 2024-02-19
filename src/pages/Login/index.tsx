@@ -1,6 +1,6 @@
 import { login } from '@/services/login';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import storetify from 'storetify';
@@ -28,15 +28,17 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     setLogging(true)
-    const msg = await login({ ...values });
-    console.log(msg);
-    if (msg.status === 'ok') {
-      storetify('tokenKey', msg.token);
+    const res = await login({ ...values });
+    console.log(res);
+    if (res.success) {
+      storetify('tokenKey', res.data.accessToken);
       await fetchUserInfo();
-      setLogging(false);
+      message.success(res.message)
       navigate('/');
-      return;
+    } else {
+      message.error(res.message)
     }
+    setLogging(false);
   };
 
   return (

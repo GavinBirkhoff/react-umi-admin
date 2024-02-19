@@ -93,12 +93,12 @@ export default function BaseLayout(props: any) {
               <div className={styles.right}>
                 <Space size={16} wrap>
                 <Dropdown menu={{ items }} trigger={['click']}>
-                  <span>{initialState?.currentUser.name}</span>
+                  <span>{initialState?.currentUser.user.name}</span>
                   </Dropdown>
                   <Avatar
                     src={
                       <img
-                        src={initialState?.currentUser.avatar}
+                        src={initialState?.currentUser.user.avatar}
                         alt="avatar"
                       />
                     }

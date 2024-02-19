@@ -1,29 +1,39 @@
 import { Request, Response } from 'express';
 import { sleep } from 'ts-copilot';
 
-
 export default {
   'POST /api/login': async (req: Request, res: Response) => {
     const { password, username } = req.body;
     await sleep(2000);
     if (password === '123456' && username === 'admin') {
       res.send({
-        status: 'ok',
-        token: 'admin',
+        success: true,
+        code: 200,
+        message: '登陆成功',
+        data: {
+          accessToken: 'admin',
+          refreshToken: 'admin',
+        },
       });
       return;
     }
     if (password === '123456' && username === 'user') {
       res.send({
-        status: 'ok',
-        token: 'user',
+        success: true,
+        code: 200,
+        message: '登陆成功',
+        data: {
+          accessToken: 'user',
+          refreshToken: 'user',
+        },
       });
       return;
     }
 
     res.send({
-      status: 'error',
-      token: 'guest',
+      success: false,
+      code: 500,
+      message: '用户不存在/密码错误',
     });
   },
   'GET /api/currentUser': async (req: Request, res: Response) => {
@@ -33,20 +43,27 @@ export default {
       if (token === 'admin') {
         res.send({
           success: true,
+          code: 200,
+          message: '操作成功',
           data: {
-            name: 'Gavin',
-            avatar:
-              'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-            userid: '00000001',
-            email: 'gavinbirkhoff@gmail.com',
+            user: {
+              name: 'Gavin',
+              avatar:
+                'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+              userid: '00000001',
+              email: 'gavinbirkhoff@gmail.com',
+            },
           },
         });
-      } else {
-        res.status(401).send('Unauthorized');
+        return;
       }
-    } else {
-      // 如果 Authorization 头部不存在，可能需要返回 401 Unauthorized 错误
-      res.status(401).send('Unauthorized');
     }
+    // 如果 Authorization 头部不存在，可能需要返回 401 Unauthorized 错误
+    // res.status(401).send('Unauthorized');
+    res.send({
+      success: false,
+      code: 401,
+      message: '认证失败，无法访问系统资源',
+    });
   },
 };
