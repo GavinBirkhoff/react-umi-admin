@@ -3,6 +3,7 @@ const routes = [
   {
     path: '/',
     routes: [
+      { path: '/', component: 'Dashboard' },
       { path: '/user', component: 'User' },
     ],
     wrappers: [

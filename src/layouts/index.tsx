@@ -17,8 +17,9 @@ import {
   theme,
 } from 'antd';
 import { useState } from 'react';
-import { Outlet, useModel } from 'umi';
+import { Outlet, history, useModel } from 'umi';
 import styles from './index.less';
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -30,6 +31,12 @@ export default function BaseLayout(props: any) {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+    if (e.key === '1') {
+      history.push('/user')
+    }
+  };
 
   const items: MenuProps['items'] = [
     {
@@ -54,11 +61,12 @@ export default function BaseLayout(props: any) {
     >
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className={styles.logo}>React Umi Admin</div>
+          <div onClick={()=>{history.push('/')}} className={styles.logo}>React Umi Admin</div>
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={['1']}
+            onClick={handleMenuClick}
+            // defaultSelectedKeys={['1']}
             items={[
               {
                 key: '1',
