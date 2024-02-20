@@ -1,17 +1,11 @@
 import { logout } from '@/services/login';
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import {
   Avatar,
   Button,
   ConfigProvider,
   Dropdown,
   Layout,
-  Menu,
   MenuProps,
   Space,
   message,
@@ -21,8 +15,8 @@ import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import storetify from 'storetify';
 import { Outlet, history, useModel } from 'umi';
-import styles from './index.less';
 import SideMenu from './components/SideMenu';
+import styles from './index.less';
 
 const { Header, Sider, Content } = Layout;
 
@@ -93,36 +87,33 @@ export default function BaseLayout(props: any) {
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
             <div className={styles.header}>
-              <div className={styles.left}>
-                <Button
-                  type="text"
-                  icon={
-                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                  }
-                  onClick={() => setCollapsed(!collapsed)}
-                  style={{
-                    fontSize: '16px',
-                    width: 64,
-                    height: 64,
-                  }}
-                />
-              </div>
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: '16px',
+                  width: 64,
+                  height: 64,
+                }}
+              />
               <div className={styles.right}>
                 <Space size={16} wrap>
                   <Dropdown
                     menu={{ items, onClick: handleDropdownMenuClick }}
-                    trigger={['click']}
                   >
-                    <span>{initialState?.currentUser.user.name}</span>
-                  </Dropdown>
-                  <Avatar
-                    src={
-                      <img
-                        src={initialState?.currentUser.user.avatar}
-                        alt="avatar"
+                    <div className={styles.action}>
+                      <Avatar
+                        src={
+                          <img
+                            src={initialState?.currentUser.user.avatar}
+                            alt="avatar"
+                          />
+                        }
                       />
-                    }
-                  />
+                      <span style={{ marginLeft: 8 }}>{initialState?.currentUser.user.name}</span>
+                    </div>
+                  </Dropdown>
                 </Space>
               </div>
             </div>
