@@ -1,7 +1,7 @@
+import { logout } from '@/services/login';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
@@ -14,17 +14,19 @@ import {
   Menu,
   MenuProps,
   Space,
+  message,
   theme,
 } from 'antd';
 import { useState } from 'react';
+import { flushSync } from 'react-dom';
+import storetify from 'storetify';
 import { Outlet, history, useModel } from 'umi';
 import styles from './index.less';
-
 
 const { Header, Sider, Content } = Layout;
 
 export default function BaseLayout(props: any) {
-  console.log(props,'layout props');
+  console.log(props, 'layout props');
   const { initialState, setInitialState } = useModel('@@initialState');
   console.log(initialState, 'initialState');
   const [collapsed, setCollapsed] = useState(false);
@@ -32,36 +34,65 @@ export default function BaseLayout(props: any) {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     if (e.key === '1') {
-      history.push('/user')
+      history.push('/user');
+    }
+  };
+
+  const handleDropdownMenuClick: MenuProps['onClick'] = async ({ key }) => {
+    const msg = await logout();
+    if (msg.success) {
+      message.success(msg.message);
+      storetify.remove(TOKEN_KEY);
+      flushSync(() => {
+        setInitialState((s) => ({
+          ...s,
+          currentUser: undefined,
+        }));
+      });
+      history.push(key);
+    } else {
+      message.error(msg.message);
     }
   };
 
   const items: MenuProps['items'] = [
     {
-      label: "个人中心",
+      label: '个人中心',
       key: '0',
     },
     {
-      label: "退出登录",
-      key: '1',
+      label: '退出登录',
+      key: '/login',
     },
   ];
 
   return (
     <ConfigProvider
       theme={{
+        token: {
+          colorPrimary: '#1890ff',
+        },
         components: {
           Button: {
             colorPrimary: '#00b96b',
           },
         },
+        algorithm: true ? theme.defaultAlgorithm : theme.darkAlgorithm,
       }}
     >
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div onClick={()=>{history.push('/')}} className={styles.logo}>React Umi Admin</div>
+          <div
+            onClick={() => {
+              history.push('/');
+            }}
+            className={styles.logo}
+          >
+            React Umi Admin
+          </div>
           <Menu
             theme="dark"
             mode="inline"
@@ -100,8 +131,11 @@ export default function BaseLayout(props: any) {
               </div>
               <div className={styles.right}>
                 <Space size={16} wrap>
-                <Dropdown menu={{ items }} trigger={['click']}>
-                  <span>{initialState?.currentUser.user.name}</span>
+                  <Dropdown
+                    menu={{ items, onClick: handleDropdownMenuClick }}
+                    trigger={['click']}
+                  >
+                    <span>{initialState?.currentUser.user.name}</span>
                   </Dropdown>
                   <Avatar
                     src={

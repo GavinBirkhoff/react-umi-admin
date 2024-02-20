@@ -1,3 +1,4 @@
 import Card from './Card';
+import PageContainer from './PageContainer';
 
-export { Card };
+export { Card, PageContainer };

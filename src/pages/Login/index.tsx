@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
     const res = await login({ ...values });
     console.log(res);
     if (res.success) {
-      storetify('tokenKey', res.data.accessToken);
+      storetify(TOKEN_KEY, res.data.accessToken);
       await fetchUserInfo();
       message.success(res.message)
       navigate('/');

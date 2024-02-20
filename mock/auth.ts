@@ -36,6 +36,13 @@ export default {
       message: '用户不存在/密码错误',
     });
   },
+  'POST /api/logout': async (req: Request, res: Response) =>{
+    res.send({
+      success: true,
+      code: 200,
+      message: '退出成功',
+    });
+  },
   'GET /api/currentUser': async (req: Request, res: Response) => {
     const authorizationHeader = req.headers['authorization'];
     if (authorizationHeader) {

@@ -1,3 +1,4 @@
+# umi
 /node_modules
 /.env.local
 /.umirc.local.ts
@@ -7,3 +8,6 @@
 /src/.umi-test
 /dist
 .swc
+
+# Mac
+.DS_Store
