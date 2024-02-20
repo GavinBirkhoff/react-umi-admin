@@ -22,6 +22,7 @@ import { flushSync } from 'react-dom';
 import storetify from 'storetify';
 import { Outlet, history, useModel } from 'umi';
 import styles from './index.less';
+import SideMenu from './components/SideMenu';
 
 const { Header, Sider, Content } = Layout;
 
@@ -34,14 +35,7 @@ export default function BaseLayout(props: any) {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
-    if (e.key === '1') {
-      history.push('/user');
-    }
-  };
-
-  const handleDropdownMenuClick: MenuProps['onClick'] = async ({ key }) => {
+  const handleLogout = async () => {
     const msg = await logout();
     if (msg.success) {
       message.success(msg.message);
@@ -52,20 +46,31 @@ export default function BaseLayout(props: any) {
           currentUser: undefined,
         }));
       });
-      history.push(key);
+      history.push('/login');
     } else {
       message.error(msg.message);
+    }
+  };
+
+  const handleDropdownMenuClick: MenuProps['onClick'] = async ({ key }) => {
+    switch (key) {
+      case 'logout':
+        handleLogout();
+        break;
+      default:
+        history.push('/' + key);
+        break;
     }
   };
 
   const items: MenuProps['items'] = [
     {
       label: '个人中心',
-      key: '0',
+      key: 'profile',
     },
     {
       label: '退出登录',
-      key: '/login',
+      key: 'login',
     },
   ];
 
@@ -84,34 +89,7 @@ export default function BaseLayout(props: any) {
       }}
     >
       <Layout>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div
-            onClick={() => {
-              history.push('/');
-            }}
-            className={styles.logo}
-          >
-            React Umi Admin
-          </div>
-          <Menu
-            theme="dark"
-            mode="inline"
-            onClick={handleMenuClick}
-            // defaultSelectedKeys={['1']}
-            items={[
-              {
-                key: '1',
-                icon: <UserOutlined />,
-                label: '用户管理',
-              },
-              {
-                key: '2',
-                icon: <VideoCameraOutlined />,
-                label: '文档中心',
-              },
-            ]}
-          />
-        </Sider>
+        <SideMenu collapsed={collapsed} />
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
             <div className={styles.header}>

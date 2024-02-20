@@ -8,8 +8,16 @@ const routes = [
         component: 'Dashboard',
       },
       {
+        path: '/profile',
+        component: 'Profile',
+      },
+      {
         path: '/user',
         component: 'User',
+      },
+      {
+        path: '/docs',
+        component: 'Docs',
       },
     ],
   },
