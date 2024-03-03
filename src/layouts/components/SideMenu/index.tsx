@@ -1,9 +1,8 @@
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu, MenuProps } from 'antd';
 import React from 'react';
-import { history } from 'umi';
+import { FormattedMessage, history } from 'umi';
 import LogPanel from '../LogPanel';
-import styles from './index.less';
 
 const { Sider } = Layout;
 
@@ -18,7 +17,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ collapsed }) => {
 
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
-      <LogPanel/>
+      <LogPanel />
       <Menu
         theme="dark"
         mode="inline"
@@ -28,12 +27,12 @@ const SideMenu: React.FC<SideMenuProps> = ({ collapsed }) => {
           {
             key: 'user',
             icon: <UserOutlined />,
-            label: '用户管理',
+            label: <FormattedMessage id="menu.users" />,
           },
           {
             key: 'docs',
             icon: <VideoCameraOutlined />,
-            label: '文档中心',
+            label: <FormattedMessage id="menu.documents" />,
           },
         ]}
       />

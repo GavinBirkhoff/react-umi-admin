@@ -14,11 +14,11 @@ import {
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import storetify from 'storetify';
-import { Outlet, history, useModel } from 'umi';
+import { Outlet, SelectLang, history, useModel } from 'umi';
 import SideMenu from './components/SideMenu';
 import styles from './index.less';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 export default function BaseLayout(props: any) {
   console.log(props, 'layout props');
@@ -99,9 +99,8 @@ export default function BaseLayout(props: any) {
               />
               <div className={styles.right}>
                 <Space size={16} wrap>
-                  <Dropdown
-                    menu={{ items, onClick: handleDropdownMenuClick }}
-                  >
+                  <SelectLang />
+                  <Dropdown menu={{ items, onClick: handleDropdownMenuClick }}>
                     <div className={styles.action}>
                       <Avatar
                         src={
@@ -111,7 +110,9 @@ export default function BaseLayout(props: any) {
                           />
                         }
                       />
-                      <span style={{ marginLeft: 8 }}>{initialState?.currentUser.user.name}</span>
+                      <span style={{ marginLeft: 8 }}>
+                        {initialState?.currentUser.user.name}
+                      </span>
                     </div>
                   </Dropdown>
                 </Space>

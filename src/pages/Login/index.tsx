@@ -4,7 +4,7 @@ import { Button, Checkbox, Form, Input, message } from 'antd';
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import storetify from 'storetify';
-import { useModel, useNavigate } from 'umi';
+import { FormattedMessage, useModel, useNavigate } from 'umi';
 import styles from './index.less';
 
 const LoginPage: React.FC = () => {
@@ -27,16 +27,16 @@ const LoginPage: React.FC = () => {
   };
 
   const handleSubmit = async (values: any) => {
-    setLogging(true)
+    setLogging(true);
     const res = await login({ ...values });
     console.log(res);
     if (res.success) {
       storetify(TOKEN_KEY, res.data.accessToken);
       await fetchUserInfo();
-      message.success(res.message)
+      message.success(res.message);
       navigate('/');
     } else {
-      message.error(res.message)
+      message.error(res.message);
     }
     setLogging(false);
   };
@@ -72,12 +72,10 @@ const LoginPage: React.FC = () => {
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox>
+              <FormattedMessage id={'pages.login.rememberMe'} />
+            </Checkbox>
           </Form.Item>
-
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
         </Form.Item>
 
         <Form.Item>
@@ -86,9 +84,12 @@ const LoginPage: React.FC = () => {
             htmlType="submit"
             className="login-form-button"
           >
-            {isLogging ? 'Logging...' : 'Login'}
+            {isLogging ? (
+              <FormattedMessage id={'pages.login.logging'} />
+            ) : (
+              <FormattedMessage id={'pages.login.login'} />
+            )}
           </Button>
-          Or <a href="">register now!</a>
         </Form.Item>
       </Form>
     </div>
