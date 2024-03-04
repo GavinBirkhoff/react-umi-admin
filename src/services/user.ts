@@ -1,4 +1,5 @@
 import storetify from 'storetify';
+import { request } from 'umi';
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser() {
@@ -13,14 +14,10 @@ export async function currentUser() {
   });
 }
 
-export function listUser() {
-  return fetch('/api/user/list', {
+export function listUser(options?: { [key: string]: any }) {
+  return request('/api/user/list', {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${storetify(TOKEN_KEY)}`,
-    },
-  }).then((response) => {
-    return response.json();
+    ...(options || {}),
   });
 }
 
