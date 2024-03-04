@@ -6,7 +6,7 @@ let index = 31;
 for (let i = 1; i <= index; i++) {
   resultData.set(i, {
     createBy: 'admin',
-    createTime: new Date(),
+    createTime: new Date().getTime(),
     updateBy: null,
     updateTime: null,
     remark: '管理员',

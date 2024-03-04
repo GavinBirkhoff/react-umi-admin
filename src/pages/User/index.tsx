@@ -19,6 +19,7 @@ import {
   TableProps,
   message,
 } from 'antd';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import styles from './index.less';
 
@@ -165,6 +166,9 @@ const UserPage = () => {
       title: '创建时间',
       key: 'createTime',
       dataIndex: 'createTime',
+      render: (time: string) => {
+        return dayjs(time).format('YYYY MM-DD HH:mm:ss');
+      },
     },
     {
       title: '操作',
