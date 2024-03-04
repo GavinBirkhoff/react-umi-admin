@@ -3,8 +3,13 @@ import define from './config/define';
 import routes from './config/routes';
 
 export default defineConfig({
+  hash: true,
   routes,
   define,
+  headScripts: [
+    // 解决首次加载时白屏的问题
+    { src: '/scripts/loading.js', async: true },
+  ],
   plugins: [
     '@umijs/plugins/dist/initial-state',
     '@umijs/plugins/dist/model',
