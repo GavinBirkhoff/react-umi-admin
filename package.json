@@ -32,6 +32,8 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
     "antd": "^5.14.1",
+    "dayjs": "^1.11.10",
+    "dom-copilot": "1.0.0-Beta",
     "path-copilot": "1.0.0-Beta",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

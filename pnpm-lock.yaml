@@ -11,6 +11,12 @@ dependencies:
   antd:
     specifier: ^5.14.1
     version: 5.14.1(react-dom@18.2.0)(react@18.2.0)
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
+  dom-copilot:
+    specifier: 1.0.0-Beta
+    version: 1.0.0-Beta
   path-copilot:
     specifier: 1.0.0-Beta
     version: 1.0.0-Beta
@@ -4342,6 +4348,12 @@ packages:
     resolution: {integrity: sha512-gd3ypIPfOMr9h5jIKq8E3sHOTCjeirnl0WK5ZdS1AW0Odt0b1PaWaHdJ4Qk4klv+YB9aJBS7mESXjFoDQPu6DA==, tarball: https://registry.npmjs.org/dom-converter/-/dom-converter-0.2.0.tgz}
     dependencies:
       utila: 0.4.0
+    dev: false
+
+  /dom-copilot@1.0.0-Beta:
+    resolution: {integrity: sha512-0NsBejOCJscHxMhAAnyIPMEXwu4IWr+3w1vrNEBVm9ErhYNcw2RaksdFA1HMgK3xF6Cwv82l4hRQffDRTysXhQ==, tarball: https://registry.npmjs.org/dom-copilot/-/dom-copilot-1.0.0-Beta.tgz}
+    dependencies:
+      ts-copilot: 1.0.0-Beta
     dev: false
 
   /dom-serializer@1.4.1:
