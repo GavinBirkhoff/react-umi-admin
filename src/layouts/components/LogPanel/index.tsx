@@ -1,5 +1,5 @@
 import { useNavigate } from 'umi';
-import styles from './index.less'
+import styles from './index.less';
 
 const LogPanel = () => {
   const navigate = useNavigate();
@@ -10,7 +10,8 @@ const LogPanel = () => {
       }}
       className={styles.logo}
     >
-      React Umi Admin
+      <img className={styles.logoImg} src="/logo.svg" />{' '}
+      <strong>R-ADMIN</strong>
     </div>
   );
 };
