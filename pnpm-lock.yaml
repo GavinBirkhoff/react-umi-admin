@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.0.0
     version: 1.0.0
   swiftlet-log:
-    specifier: 1.0.0-beta.1
-    version: 1.0.0-beta.1
+    specifier: 1.0.0-beta.4
+    version: 1.0.0-beta.4
   ts-copilot:
     specifier: 1.0.0-Beta
     version: 1.0.0-Beta
@@ -9481,8 +9481,8 @@ packages:
       stable: 0.1.8
     dev: false
 
-  /swiftlet-log@1.0.0-beta.1:
-    resolution: {integrity: sha512-n9QT7Y9qdnyufAIPLwKG7aNoADzUGtHYjVqW82tR9THjxm2BgvuLXBxZHZR60pLZM3DfBz3ySp9fLmQ0MkWClA==, tarball: https://registry.npmjs.org/swiftlet-log/-/swiftlet-log-1.0.0-beta.1.tgz}
+  /swiftlet-log@1.0.0-beta.4:
+    resolution: {integrity: sha512-7CrO4DHBxZGagJ1bhFlO8qv2LFUIGqzHupI0rAjXZeFXmww+K0/ryGqSifvpDlrqxMuCfBi/KTfQMlT/t6/mxQ==, tarball: https://registry.npmjs.org/swiftlet-log/-/swiftlet-log-1.0.0-beta.4.tgz}
     dev: false
 
   /swr@2.2.5(react@18.2.0):

@@ -30,8 +30,8 @@ export default function BaseLayout(props: any) {
   } = theme.useToken();
 
   const handleLogout = async () => {
-    const msg = await logout();
-    if (msg.success) {
+    try {
+      const msg = await logout();
       message.success(msg.message);
       storetify.remove(TOKEN_KEY);
       flushSync(() => {
@@ -41,9 +41,7 @@ export default function BaseLayout(props: any) {
         }));
       });
       history.push('/login');
-    } else {
-      message.error(msg.message);
-    }
+    } catch (error) {}
   };
 
   const handleDropdownMenuClick: MenuProps['onClick'] = async ({ key }) => {

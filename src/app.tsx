@@ -11,10 +11,10 @@ const loginPath = '/login';
 export async function getInitialState() {
   console.log('getInitialState');
   const fetchUserInfo = async () => {
-    const msg = await queryCurrentUser();
-    if (msg.success) {
+    try {
+      const msg = await queryCurrentUser();
       return msg.data;
-    } else {
+    } catch (error) {
       history.push(loginPath);
     }
   };
@@ -38,5 +38,7 @@ export async function getInitialState() {
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request = {
+  timeout: 5000,
+  baseURL: BASE_URL,
   ...errorConfig,
 };

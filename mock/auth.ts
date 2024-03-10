@@ -36,7 +36,7 @@ export default {
       message: '用户不存在/密码错误',
     });
   },
-  'POST /api/logout': async (req: Request, res: Response) =>{
+  'POST /api/logout': async (req: Request, res: Response) => {
     res.send({
       success: true,
       code: 200,
@@ -67,7 +67,7 @@ export default {
     }
     // 如果 Authorization 头部不存在，可能需要返回 401 Unauthorized 错误
     // res.status(401).send('Unauthorized');
-    res.send({
+    res.status(401).send({
       success: false,
       code: 401,
       message: '认证失败，无法访问系统资源',

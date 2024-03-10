@@ -28,17 +28,16 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     setLogging(true);
-    const res = await login({ ...values });
-    console.log(res);
-    if (res.success) {
+    try {
+      const res = await login({ ...values });
       storetify(TOKEN_KEY, res.data.accessToken);
       await fetchUserInfo();
       message.success(res.message);
       navigate('/');
-    } else {
-      message.error(res.message);
+    } catch (error) {
+    } finally {
+      setLogging(false);
     }
-    setLogging(false);
   };
 
   return (

@@ -5,7 +5,6 @@ import routes from './config/routes';
 
 export default defineConfig({
   define,
-  plugins,
   /**
    * @name 开启 hash 模式
    * @description 让 build 之后的产物包含 hash 后缀。通常用于增量发布和避免浏览器加载缓存。
@@ -52,7 +51,7 @@ export default defineConfig({
     // 解决首次加载时白屏的问题
     { src: '/scripts/loading.js', async: true },
   ],
-  // plugins
+  plugins,
   /**
    * @name antd 插件
    * @description 内置了 babel import 插件

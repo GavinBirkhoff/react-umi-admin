@@ -21,7 +21,18 @@ for (let i = 1; i <= index; i++) {
   });
 }
 export default {
-  'GET /api/user/list': (_req: any, res: any) => {
+  'GET /api/user/list': async (_req: any, res: any) => {
+    await sleep(1000);
+    if (false) {
+      res.json({
+        success: false,
+        code: 500,
+        message: '用户列表操作失败',
+        data: null,
+        showType: 1,
+      });
+      return;
+    }
     res.json({
       success: true,
       code: 200,

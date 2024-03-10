@@ -1,22 +1,18 @@
+import { request } from 'umi';
 
-/** 登录接口 POST /api/login */
-export async function login(body: any) {
-  return fetch('/api/login', {
+/** 登录接口 POST /login */
+export async function login(body: any, options?: { [key: string]: any }) {
+  return request('/login', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  }).then((response) => {
-    return response.json();
+    data: body,
+    ...(options || {}),
   });
 }
 
-/** 退出登录接口 POST /api/logout */
-export async function logout() {
-  return fetch('/api/logout', {
+/** 退出登录接口 POST /logout */
+export async function logout(options?: { [key: string]: any }) {
+  return request('/logout', {
     method: 'POST',
-  }).then((response) => {
-    return response.json();
+    ...(options || {}),
   });
 }

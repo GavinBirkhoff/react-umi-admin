@@ -11,7 +11,7 @@ const LogPanel = () => {
       className={styles.logo}
     >
       <img className={styles.logoImg} src="/logo.svg" />{' '}
-      <strong>R-ADMIN</strong>
+      <strong>G-ADMIN</strong>
     </div>
   );
 };

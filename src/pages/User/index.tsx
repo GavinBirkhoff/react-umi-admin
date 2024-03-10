@@ -57,6 +57,7 @@ const formItemFullLayout = {
 };
 
 const UserPage = () => {
+  const [loading, setLogging] = useState(false);
   const [listData, setListData] = useState<DataType[]>([]);
 
   // 弹窗
@@ -72,8 +73,16 @@ const UserPage = () => {
   };
 
   const handleList = async () => {
-    const { data } = await listUser();
-    setListData([...data.rows]);
+    try {
+      setLogging(true);
+      const { data } = await listUser();
+      setListData([...data.rows]);
+    } catch (error: any) {
+      console.log(error.info);
+      setListData([]);
+    } finally {
+      setLogging(false);
+    }
   };
 
   const handleAdd = async () => {
@@ -99,16 +108,17 @@ const UserPage = () => {
     });
   };
 
-  const handleUpdate = (record: DataType) => {
+  const handleUpdate = async (record: DataType) => {
     reset();
     const userId = record.userId;
-    getUser(userId).then((response: any) => {
+    try {
+      const msg = await getUser(userId);
       setVisible(true);
       setTitle(`修改用户`);
       form.setFieldsValue({
-        ...response.data,
+        ...msg.data,
       });
-    });
+    } catch (error) {}
   };
 
   const submitForm = async () => {
@@ -194,8 +204,11 @@ const UserPage = () => {
         <Button type="primary" onClick={handleAdd}>
           添加用户
         </Button>
+        <Button type="link" onClick={handleList}>
+          刷新
+        </Button>
       </Space>
-      <Table columns={columns} dataSource={listData} />
+      <Table columns={columns} dataSource={listData} loading={loading} />
       {/* 用户新增修改弹出层 */}
       <Modal
         width={820}
