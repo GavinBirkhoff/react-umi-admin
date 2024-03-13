@@ -10,7 +10,7 @@ const LoginBg: React.FC<LoginBgProps> = ({ children }) => {
       <div className={styles.loginBg} />
       <div className={styles.loginTitle}>
         <img className={styles.logoImg} src="/logo-dark.svg" />
-        <strong>R-ADMIN</strong>
+        <strong>G-ADMIN</strong>
       </div>
       <div className={styles.loginText}>
         <h3>用真诚</h3>

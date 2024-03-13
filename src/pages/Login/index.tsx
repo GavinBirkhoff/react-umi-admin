@@ -1,4 +1,5 @@
 import { login } from '@/services/login';
+import { decrypt, encrypt } from '@/utils';
 import {
   AlipayCircleFilled,
   GithubFilled,
@@ -7,7 +8,7 @@ import {
   WechatFilled,
 } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Space, message } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import storetify from 'storetify';
 import { FormattedMessage, useModel, useNavigate } from 'umi';
@@ -27,6 +28,8 @@ const LoginPage: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const [isLogging, setLogging] = useState(false);
 
+  const [form] = Form.useForm();
+
   const navigate = useNavigate();
 
   const fetchUserInfo = async () => {
@@ -44,6 +47,20 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     setLogging(true);
+    if (values.rememberMe) {
+      const { username, password, rememberMe } = values;
+      storetify(
+        'rememberMe',
+        {
+          username,
+          password: encrypt(password),
+          rememberMe,
+        },
+        60 * 60 * 24 * 30,
+      );
+    } else {
+      storetify('rememberMe', undefined);
+    }
     try {
       const res = await login({ ...values });
       storetify(TOKEN_KEY, res.data.accessToken);
@@ -55,6 +72,21 @@ const LoginPage: React.FC = () => {
       setLogging(false);
     }
   };
+  const getRemember = () => {
+    const { username, password, rememberMe } =
+      (storetify('rememberMe') as any) || {};
+    const values = form.getFieldsValue(['username', 'password', 'rememberMe']);
+    const loginForm = {
+      username: username === undefined ? values.username : username,
+      password: password === undefined ? values.password : decrypt(password),
+      rememberMe:
+        rememberMe === undefined ? values.rememberMe : Boolean(rememberMe),
+    };
+    form.setFieldsValue(loginForm);
+  };
+  useEffect(() => {
+    getRemember();
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -63,9 +95,10 @@ const LoginPage: React.FC = () => {
           <div className={styles.title}>欢迎开启新世界</div>
           <Form
             {...formItemLayout}
+            form={form}
             name="login"
             size="large"
-            initialValues={{ remember: true }}
+            initialValues={{ rememberMe: true }}
             onFinish={async (values) => {
               await handleSubmit(values);
             }}
@@ -96,7 +129,7 @@ const LoginPage: React.FC = () => {
               />
             </Form.Item>
             <Form.Item style={{ marginBottom: '5px' }}>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Form.Item name="rememberMe" valuePropName="checked" noStyle>
                 <Checkbox>
                   <FormattedMessage id={'pages.login.rememberMe'} />
                 </Checkbox>

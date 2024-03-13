@@ -11,6 +11,9 @@ dependencies:
   antd:
     specifier: ^5.14.1
     version: 5.14.1(react-dom@18.2.0)(react@18.2.0)
+  crypto-js:
+    specifier: ^4.2.0
+    version: 4.2.0
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -43,6 +46,9 @@ dependencies:
     version: 1.0.0(react@18.2.0)
 
 devDependencies:
+  '@types/crypto-js':
+    specifier: ^4.2.2
+    version: 4.2.2
   '@types/express':
     specifier: ^4.17.21
     version: 4.17.21
@@ -2059,6 +2065,10 @@ packages:
       '@types/node': 20.11.19
     dev: true
 
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==, tarball: https://registry.npmjs.org/@types/crypto-js/-/crypto-js-4.2.2.tgz}
+    dev: true
+
   /@types/eslint-scope@3.7.7:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==, tarball: https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.7.tgz}
     dependencies:
@@ -4054,6 +4064,10 @@ packages:
       public-encrypt: 4.0.3
       randombytes: 2.1.0
       randomfill: 1.0.4
+    dev: false
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==, tarball: https://registry.npmjs.org/crypto-js/-/crypto-js-4.2.0.tgz}
     dev: false
 
   /css-blank-pseudo@3.0.3(postcss@8.4.35):
