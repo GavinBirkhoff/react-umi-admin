@@ -1,6 +1,18 @@
-.page{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.page {
+  .content {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 35px;
+
+    .title {
+      font-size: 32px;
+      margin-top: 10px;
+      margin-bottom: 24px;
+    }
+
+    :global(.ant-btn-lg) {
+      border-radius: 20px;
+    }
+  }
 }

@@ -19,7 +19,7 @@
 - [ ] 数据流
 - [ ] 请求方案
 - [ ] 国际化(多语言)
-- [ ] Mock
+- [x] Mock
 - [ ] 路由
 - [ ] 路由 keepalive
 - [ ] 路由数据加载
@@ -58,3 +58,9 @@ vscode
 - next-admin 开发中
 - nest-admin 后端 开发中
 - java-admin 后端 开发中
+
+## 登陆页面
+
+登陆路径：/login 登陆账号：admin 登陆密码：123456
+
+![login](./src/assets/snapshoot/screencapture-login.png)
