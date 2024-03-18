@@ -1,4 +1,5 @@
-import { PageContainer } from '@/components';
+import { PageContainer, TablePro } from '@/components';
+import { TableProRef } from '@/components/TablePro';
 import {
   addUser,
   deleteUser,
@@ -15,12 +16,11 @@ import {
   Modal,
   Row,
   Space,
-  Table,
   TableProps,
   message,
 } from 'antd';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './index.less';
 
 interface DataType {
@@ -57,32 +57,22 @@ const formItemFullLayout = {
 };
 
 const UserPage = () => {
-  const [loading, setLogging] = useState(false);
-  const [listData, setListData] = useState<DataType[]>([]);
-
   // 弹窗
   const [title, setTitle] = useState('弹出层标题');
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
 
+  const tableProRef = useRef<TableProRef>(null);
+
+  const handleTableReload = () => {
+    tableProRef.current?.reload();
+  };
+
   // 重置弹出层表单
   const reset = () => {
     form.resetFields();
     setConfirmLoading(false);
-  };
-
-  const handleList = async () => {
-    try {
-      setLogging(true);
-      const { data } = await listUser();
-      setListData([...data.rows]);
-    } catch (error: any) {
-      console.log(error.info);
-      setListData([]);
-    } finally {
-      setLogging(false);
-    }
   };
 
   const handleAdd = async () => {
@@ -100,7 +90,7 @@ const UserPage = () => {
       onOk() {
         return deleteUser(record.userId)
           .then(() => {
-            handleList();
+            handleTableReload();
             message.success(`删除成功`);
           })
           .catch(() => {});
@@ -133,7 +123,7 @@ const UserPage = () => {
         message.success('修改成功');
       }
       setVisible(false);
-      handleList();
+      handleTableReload();
     } catch (errorInfo) {
       message.error('数据验证失败不能提交');
     } finally {
@@ -148,7 +138,7 @@ const UserPage = () => {
   };
 
   useEffect(() => {
-    handleList();
+    handleTableReload();
   }, []);
 
   const columns: TableProps<DataType>['columns'] = [
@@ -200,15 +190,21 @@ const UserPage = () => {
 
   return (
     <PageContainer overlayClassName={styles.page}>
-      <Space style={{ marginBottom: 16 }}>
-        <Button type="primary" onClick={handleAdd}>
-          添加用户
-        </Button>
-        <Button type="link" onClick={handleList}>
-          刷新
-        </Button>
-      </Space>
-      <Table columns={columns} dataSource={listData} loading={loading} />
+      <TablePro
+        toolbarRender={() => (
+          <>
+            <Button type="primary" onClick={handleAdd}>
+              新增用户
+            </Button>
+            <Button type="link" onClick={handleTableReload}>
+              刷新
+            </Button>
+          </>
+        )}
+        ref={tableProRef}
+        columns={columns}
+        request={listUser}
+      />
       {/* 用户新增修改弹出层 */}
       <Modal
         width={820}
