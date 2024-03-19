@@ -187,6 +187,7 @@ const UserPage = () => {
   return (
     <PageContainer overlayClassName={styles.page}>
       <TablePro
+        rowKey={'userId'}
         toolbarRender={() => (
           <>
             <Button type="primary" onClick={handleAdd}>
