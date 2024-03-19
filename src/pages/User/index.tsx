@@ -20,7 +20,7 @@ import {
   message,
 } from 'antd';
 import dayjs from 'dayjs';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './index.less';
 
 interface DataType {
@@ -137,10 +137,6 @@ const UserPage = () => {
     reset();
   };
 
-  useEffect(() => {
-    handleTableReload();
-  }, []);
-
   const columns: TableProps<DataType>['columns'] = [
     {
       title: '用户编号',
@@ -195,9 +191,6 @@ const UserPage = () => {
           <>
             <Button type="primary" onClick={handleAdd}>
               新增用户
-            </Button>
-            <Button type="link" onClick={handleTableReload}>
-              刷新
             </Button>
           </>
         )}

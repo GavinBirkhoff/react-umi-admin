@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { sleep } from 'ts-copilot';
 
 const resultData = new Map();
-let index = 31;
+let index = 39;
 for (let i = 1; i <= index; i++) {
   resultData.set(i, {
     createBy: 'admin',
@@ -21,8 +21,9 @@ for (let i = 1; i <= index; i++) {
   });
 }
 export default {
-  'GET /api/user/list': async (_req: any, res: any) => {
-    await sleep(1000);
+  'GET /api/user/list': async (req: Request, res: Response) => {
+    const { pageNum, pageSize } = req.query;
+    await sleep(500);
     if (false) {
       res.json({
         success: false,
@@ -38,7 +39,10 @@ export default {
       code: 200,
       message: '操作成功',
       data: {
-        rows: [...resultData.values()],
+        rows: [...resultData.values()].splice(
+          (parseInt(pageNum as string) - 1) * parseInt(pageSize as string),
+          parseInt(pageSize as string),
+        ),
         total: resultData.size,
       },
     });
