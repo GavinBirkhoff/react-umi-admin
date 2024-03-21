@@ -1,5 +1,13 @@
-import { ReloadOutlined } from '@ant-design/icons';
-import { Button, Flex, Pagination, Space, Table, TableProps } from 'antd';
+import { ReloadOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Flex,
+  Pagination,
+  Space,
+  Table,
+  TableProps,
+  Tooltip,
+} from 'antd';
 import {
   forwardRef,
   useEffect,
@@ -7,8 +15,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import AdvancedSearchForm from './components/AdvancedSearchForm';
 
-interface TableProProps extends TableProps<any> {
+interface TableProProps<T> extends TableProps<T> {
   request: (params: any, options?: { [key: string]: any }) => Promise<any>;
   toolbarRender?: () => React.ReactNode;
 }
@@ -19,12 +28,15 @@ export interface TableProRef {
 
 const TableProFunction: React.ForwardRefRenderFunction<
   TableProRef,
-  TableProProps
+  TableProProps<any>
 > = (props, ref) => {
   const { columns, request, toolbarRender = () => null, ...rest } = props;
   const [loading, setLogging] = useState(false);
   const [listData, setListData] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
+
+  // 高级搜索
+  const [showSearch, setShowSearch] = useState(true);
 
   const paramsRef = useRef<any>({
     current: 1,
@@ -37,6 +49,7 @@ const TableProFunction: React.ForwardRefRenderFunction<
       const { data } = await request({
         ...paramsRef.current,
         pageNum: paramsRef.current.current,
+        current: undefined,
       });
 
       setListData([...data.rows]);
@@ -50,6 +63,13 @@ const TableProFunction: React.ForwardRefRenderFunction<
   };
 
   const reload = () => {
+    handleList();
+  };
+
+  // 高级搜索
+  const handleAdvancedQuery = (values: Record<string, any>) => {
+    const newParams = { ...paramsRef.current, current: 1, ...values };
+    paramsRef.current = newParams;
     handleList();
   };
 
@@ -68,16 +88,31 @@ const TableProFunction: React.ForwardRefRenderFunction<
   const toolbar = toolbarRender();
   return (
     <div>
+      {showSearch && !!columns && (
+        <AdvancedSearchForm
+          searchFields={columns.filter(
+            (item: any) => item.advancedSearch !== undefined,
+          )}
+          onSearchFinish={handleAdvancedQuery}
+        ></AdvancedSearchForm>
+      )}
       <Flex justify="space-between" align="center">
         <Space style={{ marginBottom: 16 }}>{toolbar}</Space>
         <Space>
-          <Button
-            type="dashed"
-            onClick={() => reload()}
-            icon={<ReloadOutlined />}
-          >
-            刷新
-          </Button>
+          <Tooltip title={showSearch ? '隐藏搜索' : '显示搜索'}>
+            <Button
+              shape="circle"
+              icon={<SearchOutlined />}
+              onClick={() => setShowSearch(!showSearch)}
+            />
+          </Tooltip>
+          <Tooltip title="刷新">
+            <Button
+              shape="circle"
+              onClick={() => reload()}
+              icon={<ReloadOutlined />}
+            />
+          </Tooltip>
         </Space>
       </Flex>
       <Table
@@ -108,5 +143,5 @@ const TableProFunction: React.ForwardRefRenderFunction<
 };
 
 const TablePro = forwardRef(TableProFunction);
-
+TablePro.displayName = 'TablePro';
 export default TablePro;

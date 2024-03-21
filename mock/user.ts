@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { sleep } from 'ts-copilot';
 
@@ -14,15 +15,16 @@ for (let i = 1; i <= index; i++) {
     userName: 'admin' + i,
     nickName: 'Gavin' + i,
     email: 'admin@gmail.com',
-    phoneNumber: '15888888888',
+    phoneNumber: '1588888888' + (i % 10),
     sex: '1',
-    status: '0',
+    status: i % 2 === 0 ? '0' : '1',
     delFlag: '0',
   });
 }
 export default {
   'GET /api/user/list': async (req: Request, res: Response) => {
-    const { pageNum, pageSize } = req.query;
+    const { pageNum, pageSize, userName, phoneNumber, dateRange, status } =
+      req.query;
     await sleep(500);
     if (false) {
       res.json({
@@ -34,16 +36,49 @@ export default {
       });
       return;
     }
+    const rows = [...resultData.values()].filter((item) => {
+      let flag = true;
+      if (userName) {
+        flag = item.userName.includes(userName as string);
+      }
+      if (phoneNumber) {
+        flag = item.phoneNumber.includes(phoneNumber as string);
+      }
+      if (status) {
+        flag = item.status === status;
+      }
+      if (dateRange) {
+        const [start, end] = (dateRange as string).split('_to_');
+        // 将字符串形式的日期转换为 Day.js 对象
+        const startDate = dayjs(start);
+        const endDate = dayjs(end);
+
+        // 判断 item.createTime 是否在范围内
+        flag =
+          dayjs(dayjs(item.createTime).format('YYYY MM-DD')).isSame(
+            startDate,
+          ) ||
+          dayjs(dayjs(item.createTime).format('YYYY MM-DD')).isSame(endDate) ||
+          (dayjs(dayjs(item.createTime).format('YYYY MM-DD')).isAfter(
+            startDate,
+          ) &&
+            dayjs(dayjs(item.createTime).format('YYYY MM-DD')).isBefore(
+              endDate,
+            ));
+      }
+      return flag;
+    });
+
     res.json({
       success: true,
       code: 200,
       message: '操作成功',
       data: {
-        rows: [...resultData.values()].splice(
+        rows: rows.splice(
           (parseInt(pageNum as string) - 1) * parseInt(pageSize as string),
           parseInt(pageSize as string),
         ),
-        total: resultData.size,
+        total: rows.length,
       },
     });
   },

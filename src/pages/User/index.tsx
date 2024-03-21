@@ -1,5 +1,6 @@
 import { PageContainer, TablePro } from '@/components';
 import { TableProRef } from '@/components/TablePro';
+import { AdvancedSearchItem } from '@/components/TablePro/components/AdvancedSearchForm';
 import {
   addUser,
   deleteUser,
@@ -7,7 +8,11 @@ import {
   listUser,
   updateUser,
 } from '@/services/user';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import {
   Button,
   Col,
@@ -16,9 +21,10 @@ import {
   Modal,
   Row,
   Space,
-  TableProps,
+  Tag,
   message,
 } from 'antd';
+import { ColumnProps } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useRef, useState } from 'react';
 import styles from './index.less';
@@ -37,6 +43,10 @@ interface DataType {
   sex: string;
   status: string;
   delFlag: string;
+}
+
+interface UserColumnProps<T, U> extends ColumnProps<T> {
+  advancedSearch?: AdvancedSearchItem<U>;
 }
 
 const formItemLayout = {
@@ -137,7 +147,7 @@ const UserPage = () => {
     reset();
   };
 
-  const columns: TableProps<DataType>['columns'] = [
+  const columns: UserColumnProps<DataType, Record<string, string>>[] = [
     {
       title: '用户编号',
       dataIndex: 'userId',
@@ -147,6 +157,7 @@ const UserPage = () => {
       title: '用户名称',
       dataIndex: 'userName',
       key: 'userName',
+      advancedSearch: { type: 'INPUT' },
     },
     {
       title: '用户昵称',
@@ -157,13 +168,36 @@ const UserPage = () => {
       title: '手机号码',
       key: 'phoneNumber',
       dataIndex: 'phoneNumber',
+      advancedSearch: { type: 'INPUT' },
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+      advancedSearch: {
+        type: 'SELECT',
+        value: [
+          { label: '正常', value: '0' },
+          { label: '停用', value: '1' },
+        ],
+      },
+      render: (status: string) => {
+        return status === '0' ? (
+          <Tag color="success">正常</Tag>
+        ) : (
+          <Tag color="error">停用</Tag>
+        );
+      },
     },
     {
       title: '创建时间',
       key: 'createTime',
       dataIndex: 'createTime',
       render: (time: string) => {
-        return dayjs(time).format('YYYY MM-DD HH:mm:ss');
+        return dayjs(time).format('YYYY MM-DD');
+      },
+      advancedSearch: {
+        type: 'TIME_RANGE',
       },
     },
     {
@@ -172,10 +206,19 @@ const UserPage = () => {
       render: (record) => {
         return (
           <Space size={0}>
-            <Button type="link" onClick={() => handleUpdate(record)}>
+            <Button
+              type="link"
+              icon={<EditOutlined />}
+              onClick={() => handleUpdate(record)}
+            >
               修改
             </Button>
-            <Button danger type="link" onClick={() => handleDelete(record)}>
+            <Button
+              danger
+              type="link"
+              icon={<DeleteOutlined />}
+              onClick={() => handleDelete(record)}
+            >
               删除
             </Button>
           </Space>
@@ -201,6 +244,7 @@ const UserPage = () => {
       />
       {/* 用户新增修改弹出层 */}
       <Modal
+        destroyOnClose
         width={820}
         title={title}
         open={visible}

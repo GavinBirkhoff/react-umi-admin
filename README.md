@@ -77,3 +77,7 @@ npm start
 登陆路径：/login 登陆账号：admin 登陆密码：123456
 
 ![login](./src/assets/snapshoot/screencapture-login.png)
+
+## 用户页面
+
+![login](./src/assets/snapshoot/screencapture-user.png)
