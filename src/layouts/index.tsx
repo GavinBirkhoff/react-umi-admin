@@ -20,10 +20,8 @@ import styles from './index.less';
 
 const { Header, Content } = Layout;
 
-export default function BaseLayout(props: any) {
-  console.log(props, 'layout props');
+export default function BaseLayout() {
   const { initialState, setInitialState } = useModel('@@initialState');
-  console.log(initialState, 'initialState');
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
