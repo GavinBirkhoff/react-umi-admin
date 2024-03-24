@@ -86,6 +86,7 @@ export default defineConfig({
   request: {
     dataField: 'data',
   },
+  styledComponents: {},
   // end plugins
   npmClient: 'pnpm',
 });
