@@ -1,5 +1,14 @@
 import { addUser, updateUser } from '@/services/user';
-import { Col, Form, FormInstance, Input, Modal, Row, message } from 'antd';
+import {
+  Col,
+  Form,
+  FormInstance,
+  Input,
+  Modal,
+  Radio,
+  Row,
+  message,
+} from 'antd';
 import React, { useImperativeHandle, useState } from 'react';
 
 interface UpdateFormProps {
@@ -57,8 +66,8 @@ const UpdateFormFunction: React.ForwardRefRenderFunction<
         message.success('修改成功');
       }
       setVisible(false);
-      reset();
       onOk?.();
+      reset();
     } catch (errorInfo) {
       message.error('数据验证失败不能提交');
     } finally {
@@ -79,6 +88,7 @@ const UpdateFormFunction: React.ForwardRefRenderFunction<
         show: (title, data) => {
           setTitle(title);
           setVisible(true);
+          reset();
           if (data) {
             form.setFieldsValue(data);
           }
@@ -96,6 +106,7 @@ const UpdateFormFunction: React.ForwardRefRenderFunction<
   return (
     <Modal
       destroyOnClose
+      forceRender
       width={820}
       title={title}
       open={visible}
@@ -185,6 +196,18 @@ const UpdateFormFunction: React.ForwardRefRenderFunction<
               </Form.Item>
             </Col>
           )}
+          <Col span={12}>
+            <Form.Item name="status" label="用户状态">
+              <Radio.Group>
+                <Radio value={'0'} key={'normal'}>
+                  正常
+                </Radio>
+                <Radio value={'1'} key={'blockUp'}>
+                  停用
+                </Radio>
+              </Radio.Group>
+            </Form.Item>
+          </Col>
           <Col span={24}>
             <Form.Item name="remark" label="备注" {...formItemFullLayout}>
               <Input.TextArea placeholder="请输入内容"></Input.TextArea>

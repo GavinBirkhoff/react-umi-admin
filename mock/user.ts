@@ -74,9 +74,10 @@ export default {
       code: 200,
       message: '操作成功',
       data: {
-        rows: rows.splice(
+        rows: rows.slice(
           (parseInt(pageNum as string) - 1) * parseInt(pageSize as string),
-          parseInt(pageSize as string),
+          (parseInt(pageNum as string) - 1) * parseInt(pageSize as string) +
+            parseInt(pageSize as string),
         ),
         total: rows.length,
       },

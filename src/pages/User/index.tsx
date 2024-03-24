@@ -69,7 +69,7 @@ const UserPage = () => {
     const userId = record.userId;
     try {
       const msg = await getUser(userId);
-      updateFormRef.current?.show('添加用户', {
+      updateFormRef.current?.show('修改用户', {
         ...msg.data,
       });
     } catch (error) {}
