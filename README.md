@@ -15,20 +15,20 @@
 - [ ] 用户登录鉴权
 - [ ] 系统异常处理
 - [ ] 权限管理
-- [x] UI 组件库 这里集成 antd5.x
+- [x] UI 组件库 这里集成 antd5.x [#4](https://github.com/GavinBirkhoff/react-umi-admin/issues/4)
 - [ ] 数据流
-- [ ] 请求方案
-- [x] 国际化(多语言) 在`~src/locales`支持国际化定义
-- [x] Mock `~mock/` 里的文件都会自动加载
+- [ ] 请求方案 [#6](https://github.com/GavinBirkhoff/react-umi-admin/issues/6)
+- [x] 国际化(多语言) 在`~src/locales`支持国际化定义 [#7](https://github.com/GavinBirkhoff/react-umi-admin/issues/7)
+- [x] Mock `~mock/` 里的文件都会自动加载 [#8](https://github.com/GavinBirkhoff/react-umi-admin/issues/8)
 - [ ] 路由
 - [ ] 路由 keepalive
 - [ ] 路由数据加载
-- [x] 编码规范以及 git 提交验证
-- [ ] 调试
+- [x] 编码规范以及 git 提交验证 [#12](https://github.com/GavinBirkhoff/react-umi-admin/issues/12)
+- [x] 调试 [#13](https://github.com/GavinBirkhoff/react-umi-admin/issues/13)
 - [ ] 测试
-- [x] 环境变量 在`.env`中定义
+- [x] 环境变量 在`.env`中定义 [#15](https://github.com/GavinBirkhoff/react-umi-admin/issues/15)
 - [ ] 代理
-- [ ] 样式
+- [ ] 样式管理方案 [#17](https://github.com/GavinBirkhoff/react-umi-admin/issues/17)
 - [x] Typescript 全面支持
 - [ ] OpenApi
 - [ ] 微生成器
