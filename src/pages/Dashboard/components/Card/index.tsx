@@ -1,9 +1,15 @@
+import React from 'react';
 import { styled } from 'umi';
 
+type LabelValue = {
+  label: string;
+  value: number | string;
+};
 interface CardProps {
+  title?: React.ReactNode;
   children: React.ReactNode;
-  header: { label: string; value: number };
-  footer: { label: string; value: number };
+  header?: LabelValue;
+  footer?: LabelValue | (() => React.ReactNode);
 }
 
 const CardWarp = styled.div`
@@ -12,6 +18,13 @@ const CardWarp = styled.div`
   margin-bottom: 15px;
   font-size: 12px;
   letter-spacing: 0.5px;
+  color: #000;
+`;
+
+const CardTitle = styled.div`
+  padding: 15px 20px;
+  font-size: 15px;
+  font-weight: 700;
   color: #000;
 `;
 
@@ -24,7 +37,8 @@ const CardHead = styled.div`
 
 const CardBody = styled.div`
   padding: 0 20px;
-  height: 50px;
+  min-height: 50px;
+  width: 100%;
 `;
 
 const CardFooter = styled.div`
@@ -47,18 +61,34 @@ const CardLabel = styled.span`
   margin-right: 10px;
 `;
 
-const Card: React.FC<CardProps> = ({ children, header, footer }) => {
-  return (
-    <CardWarp>
-      <CardHead>
-        <CardLabel>{header.label}</CardLabel>
-        <CardHeaderValue>{header.value}</CardHeaderValue>
-      </CardHead>
-      <CardBody>{children}</CardBody>
-      <CardFooter>
+const Card: React.FC<CardProps> = ({ children, title, header, footer }) => {
+  const genFooter = () => {
+    if (!footer) return null;
+    if (typeof footer === 'function') {
+      return footer();
+    }
+    return (
+      <>
         <CardLabel>{footer.label}</CardLabel>
         <span>{footer.value}</span>
-      </CardFooter>
+      </>
+    );
+  };
+  const genHeader = () => {
+    if (!header) return null;
+    return (
+      <>
+        <CardLabel>{header.label}</CardLabel>
+        <CardHeaderValue>{header.value}</CardHeaderValue>
+      </>
+    );
+  };
+  return (
+    <CardWarp>
+      {title && <CardTitle>{title}</CardTitle>}
+      {header && <CardHead>{genHeader()}</CardHead>}
+      <CardBody>{children}</CardBody>
+      {footer && <CardFooter>{genFooter()}</CardFooter>}
     </CardWarp>
   );
 };

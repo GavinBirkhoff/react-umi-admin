@@ -24,7 +24,7 @@ export default function BaseLayout() {
   const { initialState, setInitialState } = useModel('@@initialState');
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   const handleLogout = async () => {
@@ -115,15 +115,7 @@ export default function BaseLayout() {
               </div>
             </div>
           </Header>
-          <Content
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
+          <Content>
             <Outlet />
           </Content>
         </Layout>
