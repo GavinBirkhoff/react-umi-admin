@@ -78,6 +78,14 @@ npm start
 
 ![login](./src/assets/snapshoot/screencapture-login.png)
 
+## 首页
+
+路径：/
+
+![dashboard](./src/assets/snapshoot/screencaptrue-dashboard.png)
+
 ## 用户页面
+
+路径：/user
 
 ![login](./src/assets/snapshoot/screencapture-user.png)
