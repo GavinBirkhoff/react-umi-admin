@@ -89,3 +89,11 @@ npm start
 路径：/user
 
 ![login](./src/assets/snapshoot/screencapture-user.png)
+
+## 打包分析
+
+```bash
+npm run analyze
+```
+
+![analyze](./src/assets/snapshoot/screencapture-analyze.png)
