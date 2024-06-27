@@ -31,6 +31,7 @@ export default function BaseLayout() {
     try {
       const msg = await logout();
       message.success(msg.message);
+      // 退出登陆 清空状态
       storetify.remove(TOKEN_KEY);
       flushSync(() => {
         setInitialState((s) => ({
@@ -60,7 +61,7 @@ export default function BaseLayout() {
     },
     {
       label: '退出登录',
-      key: 'login',
+      key: 'logout',
     },
   ];
 

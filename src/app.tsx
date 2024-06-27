@@ -1,6 +1,8 @@
 import { currentUser as queryCurrentUser } from '@/services/user';
+import storetify from 'storetify';
 import { history } from 'umi';
 import { errorConfig } from './requestErrorConfig';
+import { logger } from './utils';
 
 // const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
@@ -9,15 +11,18 @@ const loginPath = '/login';
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 export async function getInitialState() {
-  console.log('getInitialState');
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
+      // skipErrorHandler 跳过信息提示
+      const msg = await queryCurrentUser({ skipErrorHandler: true });
       return msg.data;
     } catch (error) {
+      // 清除登录状态并跳转登录页
+      storetify.remove(TOKEN_KEY);
       history.push(loginPath);
     }
   };
+  logger.info(`App 初始化完成`);
   // 如果不是登录页面，执行
   const { location } = history;
   if (location.pathname !== loginPath) {
@@ -38,7 +43,7 @@ export async function getInitialState() {
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request = {
-  timeout: 5000,
+  timeout: parseInt(TIMEOUT),
   baseURL: BASE_URL,
   ...errorConfig,
 };
