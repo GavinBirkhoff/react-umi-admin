@@ -1,4 +1,3 @@
-console.log('config');
 import { defineConfig } from 'umi';
 import define from './define';
 import plugins from './plugins';

@@ -11,25 +11,24 @@
 
 ## 功能清单
 
-- [x] 支持多环境配置 [#33](https://github.com/GavinBirkhoff/react-umi-admin/issues/33)
+- [x] 支持多环境配置 [#33](https://github.com/GavinBirkhoff/react-umi-admin/issues/33) [#15](https://github.com/GavinBirkhoff/react-umi-admin/issues/15)
+
 - [ ] 自定义布局 Layout 和菜单
 - [ ] 用户登录鉴权
 - [x] 网络请求模块 基于 axios [#32](https://github.com/GavinBirkhoff/react-umi-admin/issues/32)
+- [x] 请求方案 [#6](https://github.com/GavinBirkhoff/react-umi-admin/issues/6)
 - [x] 系统异常处理
 - [ ] 权限管理
 - [x] UI 组件库 这里集成 antd5.x [#4](https://github.com/GavinBirkhoff/react-umi-admin/issues/4)
 - [ ] 数据流
-- [ ] 请求方案 [#6](https://github.com/GavinBirkhoff/react-umi-admin/issues/6)
 - [x] 国际化(多语言) 在`~src/locales`支持国际化定义 [#7](https://github.com/GavinBirkhoff/react-umi-admin/issues/7)
-- [x] Mock `~mock/` 里的文件都会自动加载 [#8](https://github.com/GavinBirkhoff/react-umi-admin/issues/8)
-- [ ] 路由
-- [ ] 路由 keepalive
+- [x] Mock 本地数据模拟 `~mock/` 里的文件都会自动加载 [#8](https://github.com/GavinBirkhoff/react-umi-admin/issues/8) MOCK_ENABLED 开启/关闭功能
+- [ ] 路由 以及 keepalive
 - [ ] 路由数据加载
-- [x] 编码规范以及 git 提交验证 [#12](https://github.com/GavinBirkhoff/react-umi-admin/issues/12)
-- [x] 调试 [#13](https://github.com/GavinBirkhoff/react-umi-admin/issues/13)
+- [x] 本地代理 [#34](https://github.com/GavinBirkhoff/react-umi-admin/issues/34)
+- [x] 编码规范以及`git`提交验证 [#12](https://github.com/GavinBirkhoff/react-umi-admin/issues/12)
+- [x] 工程代码调试 [#13](https://github.com/GavinBirkhoff/react-umi-admin/issues/13)
 - [ ] 测试
-- [x] 环境变量 在`.env`中定义 [#15](https://github.com/GavinBirkhoff/react-umi-admin/issues/15)
-- [ ] 代理
 - [ ] 样式管理方案 [#17](https://github.com/GavinBirkhoff/react-umi-admin/issues/17)
 - [x] Typescript 全面支持
 - [ ] OpenApi
