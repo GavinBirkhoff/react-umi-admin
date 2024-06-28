@@ -5,7 +5,7 @@ export async function login(body: any, options?: { [key: string]: any }) {
   return request('/login', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || { skipAuthHandler: true }),
   });
 }
 

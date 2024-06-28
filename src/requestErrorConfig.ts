@@ -93,9 +93,11 @@ export const errorConfig: RequestConfig = {
   // 请求拦截器
   requestInterceptors: [
     (config: RequestOptions) => {
-      const { headers = {}, url, ...restConfig } = config;
+      const { headers = {}, url, skipAuthHandler, ...restConfig } = config;
       logger.info(`请求路径：${url}`);
-      headers.Authorization = `Bearer ${storetify(TOKEN_KEY)}`;
+      if (!skipAuthHandler) {
+        headers.Authorization = `Bearer ${storetify(TOKEN_KEY)}`;
+      }
       return { url, ...restConfig, headers: { ...headers } };
     },
   ],
@@ -107,7 +109,7 @@ export const errorConfig: RequestConfig = {
       const { data } = response as unknown as ResponseStructure;
 
       if (data?.success === false) {
-        logger.trace('请求失败');
+        logger.trace('服务判定错误');
       }
       return response;
     },

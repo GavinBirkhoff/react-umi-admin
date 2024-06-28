@@ -13,7 +13,8 @@
 
 - [ ] 自定义布局 Layout 和菜单
 - [ ] 用户登录鉴权
-- [ ] 系统异常处理
+- [x] 网络请求模块 基于 axios [#32](https://github.com/GavinBirkhoff/react-umi-admin/issues/32)
+- [x] 系统异常处理
 - [ ] 权限管理
 - [x] UI 组件库 这里集成 antd5.x [#4](https://github.com/GavinBirkhoff/react-umi-admin/issues/4)
 - [ ] 数据流
