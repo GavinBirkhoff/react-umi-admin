@@ -10,8 +10,9 @@
   "author": "Gavin Birkhoff <gavinbirkhoff@gmail.com>",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
-    "build": "umi build",
-    "dev": "umi dev",
+    "build": "npm run build:staging && npm run build:pd",
+    "build:pd": "cross-env UMI_ENV=pd umi build",
+    "build:staging": "cross-env UMI_ENV=staging umi build",
     "postinstall": "umi setup",
     "lint": "npm run lint:js && npm run lint:prettier && npm run tsc",
     "lint-staged": "lint-staged",
@@ -21,7 +22,9 @@
     "lint:prettier": "prettier -c --write \"**/**.{js,jsx,tsx,ts,less,md,json}\" --end-of-line auto",
     "prepare": "husky install",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run start:staging",
+    "start:pd": "cross-env UMI_ENV=pd umi dev",
+    "start:staging": "cross-env UMI_ENV=staging umi dev"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",

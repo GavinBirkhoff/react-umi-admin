@@ -11,6 +11,7 @@
 
 ## 功能清单
 
+- [x] 支持多环境配置 [#33](https://github.com/GavinBirkhoff/react-umi-admin/issues/33)
 - [ ] 自定义布局 Layout 和菜单
 - [ ] 用户登录鉴权
 - [x] 网络请求模块 基于 axios [#32](https://github.com/GavinBirkhoff/react-umi-admin/issues/32)

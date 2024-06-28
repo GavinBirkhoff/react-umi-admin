@@ -1,7 +1,8 @@
+console.log('config');
 import { defineConfig } from 'umi';
-import define from './config/define';
-import plugins from './config/plugins';
-import routes from './config/routes';
+import define from './define';
+import plugins from './plugins';
+import routes from './routes';
 
 export default defineConfig({
   define,
